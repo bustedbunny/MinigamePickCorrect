@@ -103,8 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationData:
     scale: 1.3
-    firstDuration: 1
-    secondDuration: 1
+    firstDuration: 0.5
+    secondDuration: 0.5
   particlesPrefab: {fileID: 8532504981426244641, guid: ecfb150030cf1164186eba49734ddd31,
     type: 3}
 --- !u!61 &4927711930771256420

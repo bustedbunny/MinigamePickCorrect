@@ -6,20 +6,18 @@ using UnityEngine;
 
 namespace MinigamePickCorrect
 {
-
     public abstract class PickItemBase
     {
+        private readonly AnimationData animationData;
+
+        protected Transform transform;
+        protected Tweener currentTween;
+
         public PickItemBase(Transform parent, AnimationData animationData)
         {
             this.transform = parent;
             this.animationData = animationData;
         }
-
-        protected Transform transform;
-        protected Tweener currentTween;
-
-        private readonly AnimationData animationData;
-
         public virtual void OnClick()
         {
             CompleteCurrentTween();
@@ -54,7 +52,6 @@ namespace MinigamePickCorrect
             this.particlesPrefab = particlesPrefab;
             this.onClickCallback = onClickCallback;
         }
-
         public void SetParticlesPrefab(GameObject prefab)
         {
             particlesPrefab = prefab;
@@ -69,10 +66,7 @@ namespace MinigamePickCorrect
     }
     public class WrongItem : PickItemBase
     {
-        public WrongItem(Transform parent, AnimationData animationData) : base(parent, animationData)
-        {
-        }
-
+        public WrongItem(Transform parent, AnimationData animationData) : base(parent, animationData) { }
         public override void OnClick()
         {
             base.OnClick();

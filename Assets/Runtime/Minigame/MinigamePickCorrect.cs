@@ -9,12 +9,13 @@ namespace MinigamePickCorrect
         [Tooltip("Префаб рамки. Должен иметь компоненты 'SpriteRenderer' и 'LayoutElement'.")]
         [SerializeField] private GameObject framePrefab;
 
-        [Tooltip("Префаб объекта для клика TODO")]
+        [Tooltip("Префаб визуального объекта. Должен иметь компоненты 'Collider2D' и 'PickItemComponent'")]
         [SerializeField] private GameObject pickObjectPrefab;
 
         [Tooltip("Уровни, которые будут использоваться в игре по порядку.")]
         [SerializeField] private Level[] levels;
 
+        [Tooltip("Для работы компонента требуется создание и подключение всех UI элементов.")]
         [SerializeField] private UIGroup uiGroup;
 
         [Tooltip("Если истина, то будут использоваться случайные бандлы визуализации (а бандлы установленные в уровне, игнорироваться).")]

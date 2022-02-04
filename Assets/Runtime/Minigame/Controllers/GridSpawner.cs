@@ -5,17 +5,6 @@ using UnityEngine.UI;
 
 namespace MinigamePickCorrect
 {
-    public abstract class ControllerBase
-    {
-        public ControllerBase(MinigamePickCorrect parent)
-        {
-            this.parent = parent;
-        }
-        protected MinigamePickCorrect parent;
-        public virtual void Init() { }
-        public virtual void NotifyLevelIsFinished() { }
-        public virtual void NotifyGameIsOver() { }
-    }
     public class GridSpawner : ControllerBase
     {
         public GridSpawner(GameObject pickObjectPrefab, GameObject framePrefab, MinigamePickCorrect parent) : base(parent)
@@ -26,10 +15,7 @@ namespace MinigamePickCorrect
 
             this.pickObjectPrefab = pickObjectPrefab;
             this.framePrefab = framePrefab;
-            this.parent = parent;
-
         }
-
         public override void Init()
         {
             this.parentTransform = parent.GetComponent<RectTransform>();
@@ -37,20 +23,26 @@ namespace MinigamePickCorrect
             originalFrameSize = framePrefab.GetComponent<SpriteRenderer>().size;
         }
 
-        private Vector2 originalFrameSize;
-
+        // Листы
         private readonly List<GameObject> pickObjects;
         private readonly List<GameObject> frameObjects;
+        private readonly List<LevelElement> usedElements;
+
+        // Префабы
         private readonly GameObject pickObjectPrefab;
         private readonly GameObject framePrefab;
 
+        // Рантайм поля
         private float frameSize;
+        private LevelElement currentCorrectElement;
 
-        // Референс основных компонентов
+        // Референс компонентов
         private RectTransform parentTransform;
         private GridLayoutGroup gridLayoutGroup;
 
-        private readonly List<LevelElement> usedElements;
+        // Изначальный размер рамки
+        private Vector2 originalFrameSize;
+
         public void Deploy(int size, LevelBundle bundle)
         {
             RegenerateFrameGrid(size);
@@ -81,30 +73,28 @@ namespace MinigamePickCorrect
             DisableOnClick();
             usedElements.Clear();
         }
-
-        private GameObject correctItem;
         private void SpawnPickObjects(int size, LevelBundle bundle)
         {
             List<LevelElement> bundleList = bundle.ElementsList;
 
             // Выбираем и запоминаем правильный случайный элемент
-            LevelElement correctElement = null;
+            currentCorrectElement = null;
             {
                 int crashSafetyCounter = 0;
-                while (correctElement == null)
+                while (currentCorrectElement == null)
                 {
                     LevelElement tempElement = ListUtility.RandomElementFromList(bundleList, out int ind);
                     if (!usedElements.Contains(tempElement))
                     {
                         bundleList.RemoveAt(ind);
                         usedElements.Add(tempElement);
-                        correctElement = tempElement;
+                        currentCorrectElement = tempElement;
                         break;
                     }
                     crashSafetyCounter++;
                     if (crashSafetyCounter >= size)
                     {
-                        Debug.LogError("Almost crashed");
+                        Debug.LogError($"Ran out of level elements. Bundle {bundle.name} is way too small.");
                         break;
                     }
                 }
@@ -122,13 +112,17 @@ namespace MinigamePickCorrect
             foreach (GameObject frame in frameObjects)
             {
                 GameObject newPickObject = GameObject.Instantiate(pickObjectPrefab, frame.transform);
-                PickItemScript pickItemScript = newPickObject.GetComponent<PickItemScript>();
+                PickItemComponent pickItemScript = newPickObject.GetComponent<PickItemComponent>();
+
+                // Магическое число соотношения размера рамки и её скейла
+                float newScale = frameSize * 0.25f * bundle.Scale;
+                newPickObject.transform.localScale = new Vector3(newScale, newScale, 1f);
+
                 bool isCorrect = frame == correctFrame;
                 LevelElement elementToUse = null;
                 if (isCorrect)
                 {
-                    elementToUse = correctElement;
-                    correctItem = newPickObject;
+                    elementToUse = currentCorrectElement;
                     pickItemScript.Init(true, parent.NotifyLevelIsFinished);
                 }
                 else
@@ -139,18 +133,16 @@ namespace MinigamePickCorrect
                 }
                 pickObjects.Add(newPickObject);
 #if UNITY_EDITOR
-                newPickObject.name = elementToUse.Name;
+                newPickObject.name = "Item " + elementToUse.Name;
+                frame.name = "Frame " + elementToUse.Name;
 #endif
-                // Магическое число соотношения размера рамки и её скейла
-                float newScale = frameSize / 4f;
-                newPickObject.transform.localScale = new Vector3(newScale, newScale, 1f);
                 newPickObject.GetComponent<SpriteRenderer>().sprite = elementToUse.Sprite;
+                newPickObject.transform.localRotation = Quaternion.Euler(0, 0, elementToUse.RotationOffset);
             }
         }
-
         public virtual string GetTaskString()
         {
-            return $"Find '{correctItem.name}'";
+            return $"Find '{currentCorrectElement.Name}'";
         }
         private void RegenerateFrameGrid(int size)
         {

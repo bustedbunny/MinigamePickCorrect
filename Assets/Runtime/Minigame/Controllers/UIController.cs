@@ -11,12 +11,16 @@ namespace MinigamePickCorrect
         [Tooltip("Текстовый объект для генерации текста задания.")]
         [SerializeField] public Text taskText;
 
+        [Tooltip("Кнопка для перехода на следующий уровень.")]
         [SerializeField] public Button startNextLevelButton;
 
+        [Tooltip("Кнопка перезапуска, которая появится после прохождения всех уровней.")]
         [SerializeField] public Button restartButton;
 
+        [Tooltip("Объект который обеспечивает эффект затемнения.")]
         [SerializeField] public CanvasGroup fadeObject;
 
+        [Tooltip("Экран загрузки.")]
         [SerializeField] public CanvasGroup loadingScreen;
     }
     public class UIController : ControllerBase

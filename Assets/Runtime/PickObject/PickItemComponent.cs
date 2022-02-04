@@ -1,9 +1,4 @@
-﻿using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace MinigamePickCorrect
@@ -18,7 +13,7 @@ namespace MinigamePickCorrect
         [Tooltip("Длительность возврата скейла до нормального значения.")]
         public float secondDuration;
     }
-    public class PickItemScript : MonoBehaviour
+    public class PickItemComponent : MonoBehaviour
     {
         [Tooltip("Свойства анимации Bounce.")]
         [SerializeField] AnimationData animationData;

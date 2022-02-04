@@ -12,27 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13169553b934c354abe4d2bbb35123d1, type: 3}
   m_Name: Letters
   m_EditorClassIdentifier: 
+  scale: 1
   elements:
   - name: A
     sprite: {fileID: 4963718625464178563, guid: 960baf2ce94e1364eb5862ecf485ec70,
       type: 3}
+    rotationOffset: 0
   - name: B
     sprite: {fileID: 7783457984840754399, guid: 960baf2ce94e1364eb5862ecf485ec70,
       type: 3}
+    rotationOffset: 0
   - name: C
     sprite: {fileID: 3234300448368640894, guid: 960baf2ce94e1364eb5862ecf485ec70,
       type: 3}
+    rotationOffset: 0
   - name: D
     sprite: {fileID: 7911670913450602933, guid: 960baf2ce94e1364eb5862ecf485ec70,
       type: 3}
+    rotationOffset: 0
   - name: E
     sprite: {fileID: 4652326554734856401, guid: 960baf2ce94e1364eb5862ecf485ec70,
       type: 3}
+    rotationOffset: 0
   - name: F
     sprite: {fileID: -6426668015567183463, guid: 960baf2ce94e1364eb5862ecf485ec70,
       type: 3}
+    rotationOffset: 0
   - name: G
     sprite: {fileID: 216406037199867053, guid: 960baf2ce94e1364eb5862ecf485ec70, type: 3}
+    rotationOffset: 0
   - name: H
     sprite: {fileID: -8235857483100294123, guid: 960baf2ce94e1364eb5862ecf485ec70,
       type: 3}
+    rotationOffset: 0
