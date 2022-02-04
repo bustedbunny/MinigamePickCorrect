@@ -186,6 +186,7 @@ namespace MinigamePickCorrect
                 // Магические числа для коррекции размера рамки по размеру игрового окна
                 frameSize = Mathf.Clamp(frameSize, originalFrameSize.x * 0.5f, originalFrameSize.x * 2f) / 1.2f;
             }
+            //frameSize *= 0.7f;
 
             // Установка размера для сетки и каждой рамки
             gridLayoutGroup.cellSize = new Vector2(frameSize, frameSize);

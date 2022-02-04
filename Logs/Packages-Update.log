@@ -1,8 +1,8 @@
 
-=== Wed Feb  2 11:08:04 2022
+=== Fri Feb  4 03:20:32 2022
 
 Packages were changed.
-Update Mode: mergeDefaultDependencies
+Update Mode: resetToDefaultDependencies
 
 The following packages were added:
   com.unity.collab-proxy@1.14.9
@@ -44,8 +44,3 @@ The following packages were added:
   com.unity.textmeshpro@2.1.6
   com.unity.timeline@1.2.18
   com.unity.ugui@1.0.0
-The following packages were updated:
-  com.unity.2d.animation from version 3.2.4 to 3.2.15
-  com.unity.2d.pixel-perfect from version 2.0.4 to 2.1.0
-  com.unity.2d.psdimporter from version 2.1.5 to 2.1.10
-  com.unity.2d.spriteshape from version 3.0.13 to 3.0.18
