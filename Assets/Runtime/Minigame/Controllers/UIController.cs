@@ -60,6 +60,11 @@ namespace MinigamePickCorrect
                 });
 
             });
+
+            Color color = taskText.color;
+            color.a = 0f;
+            taskText.color = color;
+            taskText.DOFade(1f, 2f);
         }
         public override void NotifyLevelIsFinished()
         {
