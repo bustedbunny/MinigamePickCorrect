@@ -99,7 +99,7 @@ namespace MinigamePickCorrect
                     }
                 }
             }
-            // Элементов меньше размер сетки, придётся создать повторы
+            // Элементов меньше размера сетки, придётся создать повторы
             if (size > bundleList.Count)
             {
                 while (bundleList.Count < size)
@@ -108,7 +108,9 @@ namespace MinigamePickCorrect
                 }
             }
 
+            // Выбираем случайную рамку для правильного ответа
             GameObject correctFrame = ListUtility.RandomElementFromList(frameObjects);
+
             foreach (GameObject frame in frameObjects)
             {
                 GameObject newPickObject = GameObject.Instantiate(pickObjectPrefab, frame.transform);
@@ -118,6 +120,7 @@ namespace MinigamePickCorrect
                 float newScale = frameSize * 0.25f * bundle.Scale;
                 newPickObject.transform.localScale = new Vector3(newScale, newScale, 1f);
 
+                // Инициализируем наш объект либо как правильный, либо как неправильный
                 bool isCorrect = frame == correctFrame;
                 LevelElement elementToUse = null;
                 if (isCorrect)
@@ -132,6 +135,7 @@ namespace MinigamePickCorrect
                     pickItemScript.Init(false);
                 }
                 pickObjects.Add(newPickObject);
+
 #if UNITY_EDITOR
                 newPickObject.name = "Item " + elementToUse.Name;
                 frame.name = "Frame " + elementToUse.Name;
